@@ -103,11 +103,54 @@ def mixedCase():
     
 def printData(datalist):
     
+    
+    
+    # open a txt file to save datasets:
+    
+    fileOut= open("DataCreator.txt", "a")
+    
     print("DATASET(s):")
-    for i in datalist:
+    fileOut.write("\n")
+    fileOut.write("DATASET(s):\n")
+    fileOut.write("Created by dataCreatorV2\n")
+    fileOut.write("\n")
+    fileOut.write("Data Summary:\n")
+    fileOut.write("Number of datasets: ")
+    fileOut.write(str(len(datalist)))
+    fileOut.write("  ")
+    fileOut.write("Dataset size: ")
+    fileOut.write(str(size))
+    fileOut.write("  ")
+    fileOut.write("Duplicates: ")
+    fileOut.write(str(dups))
+    fileOut.write("\n")
+    
+    for i in range(55):
+      
+        fileOut.write("-")
+    
+    fileOut.write("\n")
+    
+    for key, value in datalist.items():
            
-        print(i," = ", datalist[i])
+        print(key," = ", value)
+        fileOut.write(key)
+        fileOut.write(" = ")
+        fileOut.write(str(value))
+        fileOut.write("\n")
         
+    fileOut.write("\n")
+
+    for i in range(55):
+      
+        fileOut.write("-")
+    
+    fileOut.write("\n")
+    fileOut.write("END of DATASET")
+    fileOut.write("\n")
+    fileOut.close()
+    
+    
         
     print("END DATASET")
 
