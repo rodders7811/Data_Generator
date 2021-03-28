@@ -1,18 +1,73 @@
+"""
+DATA CREATOR V2:
 
-# ======= initialise variables =======
+Created by: Rodney Pereira (rodders7811)
+
+This program will create data sets for the use of experimental development.  The datasets are printed on screen and a copy saved onto a
+.txt file within the same folder.  Its an excellent, lightweight companion should you need to make use of randomly created data. 
+
+"""
+
+
+
+
+
+
+""" ======= initialise variables ======= """
 
 menu = None
 order = None
 varName = None
 size = None
 dups = None
+filename = None
 datalist = {}
 
-# ======== import libraries ========
+""" ======== import libraries ======== """
 
 import random
 
-# ======= Definitions ========
+""" ======= Definitions ======== """
+def dataSortAsc():
+    
+    for i in range(numberSets):
+                
+        dataset = []
+                                 
+        count = 0
+        while count < size:
+            
+        
+            val = random.randint(0,10000)
+            if val not in dataset or dups == 'Y':
+              dataset.append(val)
+              dataset.sort()
+              count += 1
+            
+            datalist[str(varName) +"_"+ str(i+1)] = dataset
+
+    return datalist
+
+def dataSortDec():
+    for i in range(numberSets):
+                
+        dataset = []
+                                 
+        count = 0
+        while count < size:
+            
+        
+            val = random.randint(0,10000)
+            if val not in dataset or dups == 'Y':
+              dataset.append(val)
+              dataset.sort(reverse=True)
+              count += 1
+            
+            datalist[str(varName) +"_"+ str(i+1)] = dataset
+
+    return datalist
+
+  
 
 def integerNumbers():
     
@@ -29,7 +84,12 @@ def integerNumbers():
               dataset.append(val)
               count += 1
             
-            datalist[str(varName) + str(i+1)] = dataset
+            datalist[str(varName) +"_"+ str(i+1)] = dataset
+            if order == "A":
+              dataset.sort()
+            if order == "D":
+              dataset.sort(reverse=True)
+            
 
     return datalist       
                     
@@ -41,12 +101,18 @@ def decimalNumbers():
         count = 0
         while count < size:
             
-            val = random.randint(0,10000000)/1000
+            val = random.randint(0,1000)/1000
+            
             if val not in dataset or dups == 'Y':
               dataset.append(val)
               count += 1
+                      
               
-            datalist[str(varName) + str(i+1)] = dataset
+            datalist[str(varName) +"_"+ str(i+1)] = dataset
+            if order == "A":
+              dataset.sort()
+            if order == "D":
+              dataset.sort(reverse=True)
     
     return datalist    
  
@@ -60,7 +126,7 @@ def upperCase():
             if val not in dataset or dups == 'Y':
               dataset.append(val)
               count += 1
-            datalist[str(varName) + str(i+1)] = dataset
+            datalist[str(varName) +"_"+ str(i+1)] = dataset
     
     return datalist
 
@@ -74,7 +140,7 @@ def lowerCase():
             if val not in dataset or dups == 'Y':
               dataset.append(val)
               count += 1
-            datalist[str(varName) + str(i+1)] = dataset
+            datalist[str(varName) +"_"+ str(i+1)] = dataset
     
     return datalist
 
@@ -91,23 +157,18 @@ def mixedCase():
             if val not in dataset or dups == 'Y':
               dataset.append(val)
               count += 1
-            datalist[str(varName) + str(i+1)] = dataset
+            datalist[str(varName) +"_"+ str(i+1)] = dataset
     
     return datalist
 
-
-
-
-
-
-    
-def printData(datalist):
+   
+def saveData(datalist):
     
     
     
-    # open a txt file to save datasets:
+    """ open a txt file to save datasets: """
     
-    fileOut= open("DataCreator.txt", "a")
+    fileOut = open(filename + ".txt", "a")
     
     print("DATASET(s):")
     fileOut.write("\n")
@@ -155,27 +216,7 @@ def printData(datalist):
     print("END DATASET")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ====== Menu =======
+""" ====== Menu ======= """
 
 
 print("Dataset Generator")
@@ -188,17 +229,17 @@ while True:
     print("(c) Upper case letters")
     print("(d) Lower case letters")
     print("(e) Mixed case letters")
-    print("(f) Mixed case words   -In progress-")
-    menu = input('Enter a-f: ').upper()
-    if menu in ['A','B','C','D','E','F']:
+    
+    menu = input('Enter a-e: ').upper()
+    if menu in ['A','B','C','D','E']:
       break
     else:
       print("Invalid input!\n")
 print("\n\n")
 while True:
   print("Choose an order: ")
-  print("(a) Ascending -in progress-")
-  print("(d) Descending -in progress-")
+  print("(a) Ascending ")
+  print("(d) Descending ")
   print("(u) Unordered")
   order = input('Enter a,d or u: ').upper()
   if order in ['A','D','U']:
@@ -209,7 +250,7 @@ print("\n\n")
 varName = input("Enter the variable name you wish to use for your dataset [d]: ")
 if varName == '':
   varName = 'd'
-print("\n\n")
+print("\n")
 while True:
   try:
     size = int(input('Choose a dataset size (1 upwards): '))
@@ -219,20 +260,23 @@ while True:
       break
   except:
     print("Please enter an integer number!\n\n")
-print("\n\n")
+print("\n")
 while True:
   dups = input('Accept duplicates? (Y/N): ').upper()
   if dups in ['Y','N']:
     break
   else:
-    print("Y or N!\n\n")
+    print("Y or N!\n")
 numberSets = int(input("How many datasets are needed? (1 upwards): "))
 if numberSets == '':
   numberSets = 1
-print("\n\n")
+print("\n")
 
-# ==== Menu Options =====
+filename = input("Enter file name: ")
 
+
+""" ==== Menu Options ===== """
+ 
 
 if menu == 'A':
     integerNumbers()
@@ -252,28 +296,9 @@ elif menu == 'E':
     
 else:
     pass
-  # #Mixed case words
-  # lines = open('words.txt').read().splitlines()
-  # count = 0
-  # while count < size:
-  #   val = random.choice(lines)
-  #   if val not in dataset or dups == 'Y':
-  #     dataset.append(val)
-  #     count += 1
-  # #print(dataset)
-  # 
-    
-
-if order == 'A':
-  #print('Ascending')
-  dataset.sort()
-elif order == 'D':
-  #print('Descending')
-  dataset.sort(reverse=True)
-else:
-  #print('Unsorted')
-  pass
-
+     
 
 # ====== Print the data ======
-printData(datalist)
+saveData(datalist)
+
+
