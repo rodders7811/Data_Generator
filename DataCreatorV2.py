@@ -28,46 +28,7 @@ datalist = {}
 import random
 
 """ ======= Definitions ======== """
-def dataSortAsc():
-    
-    for i in range(numberSets):
-                
-        dataset = []
-                                 
-        count = 0
-        while count < size:
-            
-        
-            val = random.randint(0,10000)
-            if val not in dataset or dups == 'Y':
-              dataset.append(val)
-              dataset.sort()
-              count += 1
-            
-            datalist[str(varName) +"_"+ str(i+1)] = dataset
-
-    return datalist
-
-def dataSortDec():
-    for i in range(numberSets):
-                
-        dataset = []
-                                 
-        count = 0
-        while count < size:
-            
-        
-            val = random.randint(0,10000)
-            if val not in dataset or dups == 'Y':
-              dataset.append(val)
-              dataset.sort(reverse=True)
-              count += 1
-            
-            datalist[str(varName) +"_"+ str(i+1)] = dataset
-
-    return datalist
-
-  
+ 
 
 def integerNumbers():
     
